@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import {makeStyles} from '@mui/styles';
 import { Paper,Box,Button,TextField} from "@mui/material";
+import { registerAPI } from "../../services/UserService";
+import { useNavigate } from "react-router-dom";
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
 const mobileNumberRegex=/^([0-9]){10}/;
@@ -13,12 +15,13 @@ const useStyles=makeStyles({
         height:'60vh',
         backgroundColor:'#FFFFFF',
         position:'relative',
-        top:'150px',
+        top:'145px',
         left:'600px',
-        borderRadius:'8px',
+        borderRadius:'20px',
         display:'flex',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        zIndex:10
     },
     signincontainer:{
         border:'0px solid red',
@@ -72,7 +75,10 @@ const useStyles=makeStyles({
         textTransform: "none !important"
     },
 });
-function SignUp(){
+function SignUp(props){
+    const openSignIn=()=>{
+        props.listenToSignUp()
+    }
     const classes=useStyles();
     const [signInObj,setSignInObj]=useState({email:"",password:"",fullName:"",mobileNumber:""});
     const [regexObj,setRegexObj]=useState({emailBorder:false,emailHelper:"",passwordBorder:false,passwordHelper:"",fullNameBorder:false,fullNameHelper:"",mobileNumberBorder:false,mobileNumberHelper:""});
@@ -166,20 +172,20 @@ function SignUp(){
             }))
         }
         if(emailTest===true && passwordTest===true && fullNameTest===true && mobileNumberTest===true){
-            // loginAPI(signInObj).then(response=>{
-            //     console.log(response);
-            //     localStorage.setItem('token',response.data.data)
-            //     navigate('/dashboard')
-            // }).catch(error=>{
-            //     console.log(error);
-            // })
+            registerAPI(signInObj).then(response=>{
+                console.log(response);
+                //openSignInNavigate();
+                //navigate('/dashboard')
+            }).catch(error=>{
+                console.log(error);
+            })
         }
     }
     return(
-        <Paper elevation={3} className={classes.signuppaper}>
+        <Paper elevation={5} className={classes.signuppaper}>
             <Box className={classes.signincontainer}>
                 <Box className={classes.mainbuttons}>
-                    <Button className={classes.signinbutton}>SIGNIN</Button>
+                    <Button className={classes.signinbutton} onClick={openSignIn}>SIGNIN</Button>
                     <Button className={classes.signupbutton}>SIGNUP</Button>
                 </Box>
                 <Box className={classes.signinforms}>

@@ -2,6 +2,7 @@
 import { Box, Button, Divider, Paper, TextField } from "@mui/material";
 import React,{useState} from "react";
 import {makeStyles} from '@mui/styles';
+import { loginAPI } from "../../services/UserService";
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
 
@@ -11,12 +12,13 @@ const useStyles=makeStyles({
         height:'60vh',
         backgroundColor:'#FFFFFF',
         position:'relative',
-        top:'150px',
+        top:'145px',
         left:'600px',
-        borderRadius:'8px',
+        borderRadius:'20px',
         display:'flex',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        zIndex:10
     },
     signincontainer:{
         border:'0px solid red',
@@ -108,7 +110,10 @@ const useStyles=makeStyles({
 
 
 })
-function SignIn(){
+function SignIn(props){
+    const openSignUp=()=>{
+        props.listenToSignIn()
+    }
     const [signInObj,setSignInObj]=useState({email:"",password:""});
     const [regexObj,setRegexObj]=useState({emailBorder:false,emailHelper:"",passwordBorder:false,passwordHelper:""});
     const classes=useStyles();
@@ -156,21 +161,22 @@ function SignIn(){
             }))
         }
         if(emailTest===true && passwordTest===true){
-            // loginAPI(signInObj).then(response=>{
-            //     console.log(response);
-            //     localStorage.setItem('token',response.data.data)
-            //     navigate('/dashboard')
-            // }).catch(error=>{
-            //     console.log(error);
-            // })
+            loginAPI(signInObj).then(response=>{
+                console.log(response);
+                localStorage.setItem('token',response.data.data)
+               // navigate('/dashboard')
+            }).catch(error=>{
+                console.log(error);
+            })
         }
+        
     }
     return(
-        <Paper elevation={3} className={classes.signinpaper}>
+        <Paper elevation={5} className={classes.signinpaper}>
             <Box className={classes.signincontainer}>
                 <Box className={classes.mainbuttons}>
-                    <Button className={classes.signinbutton}>SIGNIN</Button>
-                    <Button className={classes.signupbutton}>SIGNUP</Button>
+                    <Button className={classes.signinbutton} >SIGNIN</Button>
+                    <Button className={classes.signupbutton} onClick={openSignUp}>SIGNUP</Button>
                 </Box>
                 <Box className={classes.signinforms}>
                     <Box className={classes.textfields}>
