@@ -5,16 +5,17 @@ import { Box } from "@mui/system";
 import { Button ,Divider} from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import { Buffer } from "buffer";
 
 const useStyles=makeStyles({
     mainContainer:{
             border:'2px solid #7C1E1E',
             width:'70vw',
-            height:'80vh',
+            height:'75vh',
             display:'flex',
             flexDirection:'row',
             position:'relative',
-            top:'60px'
+            top:'10px'
     },
     container1:{
         border:'0px solid green',
@@ -131,19 +132,21 @@ const useStyles=makeStyles({
     }
 
 })
-const BookSummary=()=>{
-    const classes=useStyles()
+const BookSummary=(props)=>{
+    const classes=useStyles();
+    const image = Buffer.from(props.inputObj.bookImage).toString();
+   console.log("from book summary",props.inputObj)
     return(
         <div>
             <Box className={classes.mainContainer}>
                 <Box className={classes.container1}>
                     <Box className={classes.innerContainer1}>
-                        <img className={classes.image} src='https://m.media-amazon.com/images/W/WEBP_402378-T1/images/I/41Z7OB85fFL._SX385_BO1,204,203,200_.jpg' />
+                        <img className={classes.image} src={image}/>
                         <img className={classes.image} src='https://kbimages1-a.akamaihd.net/bd02da79-b80a-42ef-a788-168ae2f20393/1200/1200/False/harry-potter-and-the-deathly-hallows-4.jpg'/>
                     </Box>
                     <Box className={classes.innerContainer2}>
                         <Box className={classes.mainBook}>
-                            <img className={classes.imageBook} src='https://m.media-amazon.com/images/W/WEBP_402378-T1/images/I/41Z7OB85fFL._SX385_BO1,204,203,200_.jpg' />
+                            <img className={classes.imageBook} src={image} />
                         </Box>
                         <Box className={classes.buttons}>
                             <Button variant="contained" style={{backgroundColor:'#A03037'}}>Add to cart</Button>
@@ -156,12 +159,12 @@ const BookSummary=()=>{
                 </Box>
                 <Box className={classes.container2}>
                     <Box className={classes.bookTitle}>
-                        Harry potter
-                        {/* {props.book.bookName} */}
+                        {/* Harry potter */}
+                        {props.inputObj.bookName}
                     </Box>
                     <Box className={classes.bookAuthor}>
-                        by J. K. Rowling
-                        {/* {props.book.description} */}
+                        {/* by J. K. Rowling */}
+                        {props.inputObj.description}
                     </Box>
                     <Box className={classes.bookRatings}>
                         <Box className={classes.ratings}>
@@ -169,14 +172,14 @@ const BookSummary=()=>{
                             <StarBorderOutlinedIcon sx={{width:'15px',height:'13px',color:'white'}}/>
                         </Box>
                         <Box className={classes.qty}>
-                            (20)
-                            {/* ({props.book.quantity}) */}
+                            {/* (20) */}
+                            ({props.inputObj.quantity})
                         </Box>
                     </Box>
                     <Box className={classes.bookPrice}>
                         <Box className={classes.discountPrice}>
-                            Rs.1200
-                            {/* Rs.{props.book.price} */}
+                            {/* Rs.1200 */}
+                            Rs.{props.inputObj.price}
                         </Box>
                         <Box className={classes.mPrice}>
                             Rs.2000

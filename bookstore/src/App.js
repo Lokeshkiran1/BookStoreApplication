@@ -12,8 +12,8 @@ import BookSummary from './components/booksummary/BookSummary';
 function App() {
   return (
     <div className="App">
-      <BookSummary />
-      {/* <DashBoard /> */}
+      {/* <BookSummary /> */}
+      <DashBoard />
       {/* <Header />
       <Book /> */}
       {/* <Lander /> */}

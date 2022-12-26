@@ -86,10 +86,16 @@ const useStyles=makeStyles({
 
 const Book=(props)=>{
     const classes=useStyles();
+    function openBookDetails(){
+        console.log("from book",props.book)
+        let obj=props.book;
+        console.log("from book obj",obj)
+        props.openBookSummary(obj)
+    }
     const image = Buffer.from(props.book.bookImage).toString();
     return(
         <Paper elevation={3} className={classes.mainPaper}>
-            <Box className={classes.container1}>
+            <Box className={classes.container1} onClick={()=>openBookDetails()}>
                 <img className={classes.imageMain} src={image} />
             </Box>
             <Box className={classes.container2}>
