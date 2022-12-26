@@ -71,7 +71,8 @@ const useStyles=makeStyles({
     signupbuttonsubmit:{
         width:'100%',
         height:'80%',
-        color:'#A03037',
+        color:'white',
+        background:'#A03037 !important',
         textTransform: "none !important"
     },
 });

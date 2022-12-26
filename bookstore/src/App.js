@@ -4,12 +4,16 @@ import SignIn from './components/signin/SignIn';
 import SignUp from './components/signup/SignUp';
 import Lander from '../src/pages/lander/Lander'
 import Header from './components/header/Header';
+import Book from './components/book/Book'
+import DashBoard from './pages/dashboard/Dashboard';
 
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      <DashBoard />
+      {/* <Header />
+      <Book /> */}
       {/* <Lander /> */}
     </div>
   );

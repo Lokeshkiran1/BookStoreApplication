@@ -75,8 +75,8 @@ function Header(){
                         >
                         Bookstore
                     </div>
-                    <Search className="searchIcon" style={{color:'black',width:'30vw',border:'0px solid black',position:'relative',left:'300px'}}>
-                        <SearchIconWrapper className="wrapper" sx={{background:'#f1f3f4',height:'100%',width:'30vw',borderRadius:'8px'}}>
+                    <Search className="searchIcon" style={{color:'black',width:'40vw',border:'0px solid black',position:'relative',left:'250px'}}>
+                        <SearchIconWrapper className="wrapper" sx={{background:'#f1f3f4',height:'100%',width:'40vw',borderRadius:'8px'}}>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
