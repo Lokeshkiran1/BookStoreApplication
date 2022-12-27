@@ -7,11 +7,13 @@ import Header from './components/header/Header';
 import Book from './components/book/Book'
 import DashBoard from './pages/dashboard/Dashboard';
 import BookSummary from './components/booksummary/BookSummary';
+import Counter from './components/counter/Counter';
 
 
 function App() {
   return (
     <div className="App">
+      {/* <Counter /> */}
       {/* <BookSummary /> */}
       <DashBoard />
       {/* <Header />
