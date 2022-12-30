@@ -140,20 +140,21 @@ const useStyles=makeStyles({
 })
 const BookSummary=(props)=>{
     const classes=useStyles();
+    const object=props.inputObj;
 
     const [toggle,setToggle]=useState(false);
     const [toggleW,setToggleW]=useState(false);
 
     const addToCart=()=>{
         setToggle(true)
-        let bookId=props.inputObj.id
+        let bookId=props.inputObj.productId
         console.log("from booksummary to cart:",bookId)
         addToBag(bookId).then(res=>{
             console.log(res)
         }).catch(err=>{
             console.log(err)
         })
-    }
+    };
     const addToWishlist=()=>{
         let bookId=props.inputObj.id
         console.log("from booksummary to wishlist:",bookId)
@@ -179,7 +180,7 @@ const BookSummary=(props)=>{
                         </Box>
                         <Box className={classes.buttons}>
                             {
-                                toggle?<Counter inputObj={props.inputObj}/>:
+                                toggle?<Counter inputObj={object}/>:
                                 <Button variant="contained" onClick={addToCart} style={{backgroundColor:'#A03037',fontSize:'14px !important'}}>Add to cart</Button>
                             }
                             

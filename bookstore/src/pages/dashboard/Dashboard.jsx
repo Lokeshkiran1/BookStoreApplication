@@ -5,18 +5,42 @@ import BookSummary from "../../components/booksummary/BookSummary";
 import CustomizedMenus from "../../components/dropdownmenu/DropDownMenu";
 import Header from "../../components/header/Header";
 import { getAllBooks } from "../../services/DataService";
+import { makeStyles } from "@mui/styles";
+import { Box } from "@mui/system";
+import { Pagination, Stack } from "@mui/material";
+
+
+const useStyles=makeStyles({
+    footer:{
+        width:'100vw',
+        height:'7vh',
+        backgroundColor:'#2E1D1E',
+        marginTop:'100px',
+        display:'flex',
+        justifyContent:'flex-start',
+        alignItems:'center'
+     },
+     footertxt:{
+        color:'white',
+        marginLeft:'180px',
+        fontSize:'14px'
+     }
+})
 
 const DashBoard=()=>{
+    const classes=useStyles();
     const [booksList,setBookList]=useState([]);
     const [inputObj,setInputObj]=useState({
         bookName:""
     })
+
     const[toggle,setToggle]=useState(false)
+    // const[pagination,setPagination]=useState(false);
+    const[page,setPage]=useState(1);
 
     const openBookSummary=(obj)=>{
         setToggle(true);
         console.log("from dashboard",obj);
-
         setInputObj(obj)
     }
 console.log("from input obj",inputObj)
@@ -24,7 +48,6 @@ console.log("from input obj",inputObj)
         getAllBooks().then(res=>{
             console.log(res);
             let obj=res.data.data;
-            //console.log("=======",obj)
             setBookList(obj)
         }).catch(err=>{
             console.log(err)
@@ -36,7 +59,15 @@ console.log("from input obj",inputObj)
     const autoRefresh=()=>{
         getBook();
     }
+    const[currentPage,setCurrentPage]=useState(1);
+    const[booksPerPage,setBooksPerPage]=useState(8);
 
+    const numberOfBooks=booksList.length;
+    const numberOfPages=Math.ceil(numberOfBooks/booksPerPage);
+    const lastBookIndex=currentPage*booksPerPage;
+    const firstBookIndex=lastBookIndex-booksPerPage;
+    const currentBooks=booksList.slice(firstBookIndex,lastBookIndex)
+    
 
     return(
         <div>
@@ -47,8 +78,8 @@ console.log("from input obj",inputObj)
                         <div style={{fontSize:'20px',fontWeight:'bold'}}>
                             Books
                         </div>
-                        <div style={{color:'#878787'}}>
-                            (11 Items)
+                        <div style={{color:'#878787',position:'relative',right:'40px'}}>
+                            ({booksList.length})
                         </div>
                     </div>
                     <div style={{alignContent:'center',marginTop:'10px',color:'black'}}>
@@ -60,12 +91,21 @@ console.log("from input obj",inputObj)
                         toggle? <BookSummary inputObj={inputObj} />:
                         <div style={{ display:'flex',flexDirection:'row',justifyContent:'space-between',flexWrap:'wrap'}}>
                             {
-                                booksList.map((book)=>(<Book book={book} getBook={getBook} autoRefresh={autoRefresh} openBookSummary={openBookSummary}/>))
+                                currentBooks.map((book)=>(<Book book={book} getBook={getBook} autoRefresh={autoRefresh} openBookSummary={openBookSummary}/>))
                             }
                         </div>
                     }
                 </div>
             </div>
+            {
+                <Box sx={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
+                        <Pagination count={numberOfPages} onChange={(event,value)=>setCurrentPage(value)}/>
+                        
+                </Box>
+            }
+            <Box className={classes.footer}>
+                    <Box className={classes.footertxt}>Copyright @ 2022, Bookstore Private Limited.All Rights Reserved</Box>
+            </Box>
         </div>
     )
 }

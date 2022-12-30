@@ -3,8 +3,10 @@ import { Box, Button, Divider, Paper, TextField } from "@mui/material";
 import React,{useState} from "react";
 import {makeStyles} from '@mui/styles';
 import { loginAPI } from "../../services/UserService";
+import {useNavigate} from 'react-router-dom';
 const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])([a-zA-Z0-9]*).{8,}$/;
+
 
 const useStyles=makeStyles({
     signinpaper:{
@@ -112,6 +114,7 @@ const useStyles=makeStyles({
 
 })
 function SignIn(props){
+    const navigate=useNavigate();
     const openSignUp=()=>{
         props.listenToSignIn()
     }
@@ -165,7 +168,7 @@ function SignIn(props){
             loginAPI(signInObj).then(response=>{
                 console.log(response);
                 localStorage.setItem('token',response.data.data)
-               // navigate('/dashboard')
+               navigate('/dashboard')
             }).catch(error=>{
                 console.log(error);
             })

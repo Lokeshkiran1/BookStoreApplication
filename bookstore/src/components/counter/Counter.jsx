@@ -30,7 +30,7 @@ const useStyles=makeStyles({
 const Counter=(props)=>{
     const classes=useStyles();
     const incrementItemCart=()=>{
-        let bookId=props.inputObj.id
+        let bookId=props.inputObj.productId
         console.log("from counter cart:",bookId)
         addToBag(bookId).then(res=>{
             console.log(res)
@@ -39,7 +39,7 @@ const Counter=(props)=>{
         })
     }
     const removeItemCart=()=>{
-        let bookId=props.inputObj.id
+        let bookId=props.inputObj.productId
         console.log("from counter remove to cart:",bookId)
         removeFromBag(bookId).then(res=>{
             console.log(res)
